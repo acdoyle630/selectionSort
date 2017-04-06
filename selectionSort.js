@@ -1,25 +1,30 @@
 /*jshint esversion: 6*/
-const testing = () => {
-  var current = 1;
-  function sort( arr ){
-    if(current === arr.length){
-      return;
+
+module.exports = () => {
+  var min = 0;
+  function selectionSort( arr ){
+  if( min === arr.length - 1 ){
+    console.log( arr);
+    return arr;
+  }
+  var smallest = arr[min];
+  for (var i = min; i < arr.length; i ++){
+    var current;
+    var prev;
+      if ( arr[i] < smallest ) {
+      smallest = arr[i];
+      prev = arr[min];
+      arr[i] = prev;
+      arr[min] = smallest;
     }
-    for(var i = current; i >=0; i-- ){
-      if (arr[current] > arr[ i - 1] || i - 1 === 0){
-        arr.splice(i-1, 0, arr[current]);
-        arr.splice(current + 1, 1);
-        }
-      }
-      current ++;
-      sort(arr);
-      return arr;
-    }
-  return {
-    sort,
+  }
+  min ++;
+  selectionSort(arr);
+  }
+  return{
+    selectionSort,
   };
 };
 
-
-var test = testing();
-console.log(test.sort([9,6,4,3,2,1]));
+var test = module.exports();
+test.selectionSort([3,2,5,7,99,-9]);
